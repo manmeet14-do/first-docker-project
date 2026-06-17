@@ -1,0 +1,29 @@
+name: Docker Push Pipeline
+
+
+on:
+ workflow_dispatch:
+
+
+jobs:
+  build:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Download repository code
+      uses: actions/checkout@v4
+
+    - name: Verify Files 
+      run: ls -la
+
+    - name: Create Docker image from Dockerfile
+      run: docker build -t my-python-app .
+
+    - name: Verify Image created
+      run: docker images
+
+   
+    
+
+
+ 
