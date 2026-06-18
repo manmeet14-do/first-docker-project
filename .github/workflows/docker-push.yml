@@ -44,8 +44,8 @@ jobs:
        uses: appleboy/ssh-action@v1.2.2
        with:
          host: ${{ secrets.HOST }}
-         username: ${{ secrets.USERNAME }}
-         password: ${{ secrets.PASSWORD }}
+         username: ec2-user
+         key: ${{ secrets.EC2_SSH_KEY }}
          port: 22
          script: | 
             docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
