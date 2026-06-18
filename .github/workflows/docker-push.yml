@@ -35,20 +35,20 @@ jobs:
        run: docker push ${{ vars.DOCKER_USERNAME }}/my-python-app:v1
 
 
- deploy:
-   needs: build
-   runs-on: ubuntu-latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
-   steps:
-    - name: deploy to Ec2
-      uses: appleboy/ssh-action@v1.2.2
-      with:
+    steps:
+     - name: deploy to Ec2
+       uses: appleboy/ssh-action@v1.2.2
+       with:
          host: ${{ secrets.HOST }}
          username: ${{ secrets.USERNAME }}
          password: ${{ secrets.PASSWORD }}
          port: 22
          script: | 
-           docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+            docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
 
             docker pull ${{ vars.DOCKER_USERNAME }}/my-python-app:v1
 
