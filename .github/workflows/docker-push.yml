@@ -28,8 +28,11 @@ jobs:
          username: ${{ vars.DOCKER_USERNAME }}
          password: ${{ secrets.DOCKER_TOKEN }}
 
+     - name: Tag docker hub
+       run: docker tag my-app manmeeetkaur/my-python-app:v1
 
-
+     - name: Push docker image
+       run : docker push manmeeetkaur/my-python-app:v1
    
     
 
