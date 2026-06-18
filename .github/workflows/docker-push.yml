@@ -29,11 +29,31 @@ jobs:
          password: ${{ secrets.DOCKER_TOKEN }}
 
      - name: Tag docker hub
-       run: docker tag my-python-app manmeeetkaur/my-python-app:v1
+       run: docker tag my-python-app ${{ vars.DOCKER_USERNAME }}/my-python-app:v1
 
      - name: Push docker image
-       run : docker push manmeeetkaur/my-python-app:v1
-   
+       run: docker push ${{ vars.DOCKER_USERNAME }}/my-python-app:v1
+
+
+     - name: Execute remote SSH commands using password
+       uses: appleboy/ssh-action@v1
+
+     - name: 
+       with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: | 
+            docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+
+            docker pull ${{ vars.DOCKER_USERNAME }}/my-python-app:v1
+
+            docker stop my-python-app || true
+
+            docker rm my-python-app || true
+
+            docker run -d --name my-python-app -p 5000:5000 ${{ vars.DOCKER_USERNAME }}/my-python-app:v1
     
 
 
