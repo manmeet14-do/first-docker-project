@@ -48,7 +48,9 @@ jobs:
          key: ${{ secrets.EC2_SSH_KEY }}
          port: 22
          script: | 
-            docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+             echo "${{ secrets.DOCKER_TOKEN }}" | sudo docker login \
+            -u "${{ vars.DOCKER_USERNAME }}" \
+            --password-stdin
 
             docker pull manmeeetkaur/my-python-app:latest
 
