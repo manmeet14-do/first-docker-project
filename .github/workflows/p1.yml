@@ -6,11 +6,11 @@ on:
   inputs:
     environment:
      description: "select Environment"
-     required: true
      default: "dev"
-
-
-#jobs:
-#  runs-on: ubuntu_latest
-
-
+     required: true
+     type: choice
+     options:
+         - dev
+         - prod
+         - staging
+  
