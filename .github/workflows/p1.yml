@@ -14,3 +14,13 @@ on:
          - prod
          - staging
   
+
+jobs:
+  demo:
+   runs-on: ubuntu_latest
+   
+
+
+   steps:
+     - name: Print hello
+       run: echo "Hello"
