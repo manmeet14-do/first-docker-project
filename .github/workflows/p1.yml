@@ -17,7 +17,7 @@ on:
 
 jobs:
   demo:
-   runs-on: ubuntu_latest
+   runs-on: ubuntu-latest
    
 
 
