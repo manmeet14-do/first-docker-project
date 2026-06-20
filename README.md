@@ -1,172 +1,192 @@
-# 🚀 Docker CI/CD Pipeline using GitHub Actions & AWS EC2
-
-This project demonstrates a complete CI/CD pipeline that automatically builds a Docker image, pushes it to Docker Hub, and deploys the latest version to an AWS EC2 instance using GitHub Actions.
-
----
+# 🚀 Docker CI/CD Pipeline with GitHub Actions & AWS EC2
 
 ## 📌 Project Overview
 
-The pipeline performs the following tasks automatically:
+This project demonstrates a complete **CI/CD pipeline** using **GitHub Actions**, **Docker**, **Docker Hub**, and **AWS EC2**.
 
-1. Checkout the source code from GitHub.
-2. Build a Docker image using the Dockerfile.
-3. Login to Docker Hub.
-4. Tag and push the Docker image to Docker Hub.
-5. Connect to an AWS EC2 instance using SSH.
-6. Pull the latest Docker image from Docker Hub.
-7. Stop and remove the previous running container.
-8. Deploy a new container with the latest image.
+Whenever code is pushed to the GitHub repository, GitHub Actions automatically:
 
----
+* Builds a Docker image
+* Pushes the image to Docker Hub
+* Connects to an AWS EC2 instance using SSH
+* Pulls the latest Docker image
+* Replaces the existing container with the new version
 
-## 🛠️ Technologies Used
-
-- Git
-- GitHub
-- GitHub Actions
-- Docker
-- Docker Hub
-- AWS EC2 (Amazon Linux 2023)
-- SSH
+The application is built using **Python Flask** and runs inside a Docker container.
 
 ---
 
-## 📂 Project Structure
+# 🛠️ Technologies Used
 
-```
+* Git
+* GitHub
+* GitHub Actions
+* Docker
+* Docker Hub
+* Python
+* Flask
+* AWS EC2
+* Linux (Amazon Linux 2023)
+
+---
+
+# 📂 Project Structure
+
+```text
 .
-├── .github
-│   └── workflows
+├── .github/
+│   └── workflows/
 │       └── docker-push.yml
-├── Dockerfile
+├── templates/
+│   └── index.html
 ├── app.py
+├── Dockerfile
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## ⚙️ CI/CD Workflow
+# 🔄 CI/CD Workflow
 
-```
+```text
 Developer
-    │
-    ▼
+      │
+      ▼
 Git Push
-    │
-    ▼
+      │
+      ▼
 GitHub Actions
-    │
-    ▼
+      │
+      ▼
 Checkout Repository
-    │
-    ▼
+      │
+      ▼
 Build Docker Image
-    │
-    ▼
-Login to Docker Hub
-    │
-    ▼
-Push Docker Image
-    │
-    ▼
+      │
+      ▼
+Docker Hub Login
+      │
+      ▼
+Push Image to Docker Hub
+      │
+      ▼
 SSH into AWS EC2
-    │
-    ▼
-Pull Latest Docker Image
-    │
-    ▼
-Stop Previous Container
-    │
-    ▼
-Remove Previous Container
-    │
-    ▼
+      │
+      ▼
+Docker Pull Latest Image
+      │
+      ▼
+Stop Existing Container
+      │
+      ▼
+Remove Existing Container
+      │
+      ▼
 Run New Docker Container
 ```
 
 ---
 
-## 🔐 GitHub Secrets & Variables
+# ⚙️ GitHub Actions Features Used
 
-### Repository Secrets
+* Workflow Dispatch
+* Jobs
+* Steps
+* GitHub Secrets
+* GitHub Variables
+* Docker Login Action
+* Appleboy SSH Action
+* Docker Build
+* Docker Push
+* Docker Pull
+* Automated Deployment
 
-| Secret | Description |
-|---------|-------------|
+---
+
+# 🔐 GitHub Secrets
+
+The following secrets are configured:
+
+| Secret       | Purpose                 |
+| ------------ | ----------------------- |
 | DOCKER_TOKEN | Docker Hub Access Token |
-| EC2_SSH_KEY | AWS EC2 Private Key (.pem) |
-| HOST | EC2 Public IP or DNS |
+| HOST         | AWS EC2 Public IP/DNS   |
+| EC2_SSH_KEY  | Private SSH Key         |
 
-### Repository Variables
+---
 
-| Variable | Description |
-|----------|-------------|
+# 🌐 GitHub Variables
+
+| Variable        | Purpose             |
+| --------------- | ------------------- |
 | DOCKER_USERNAME | Docker Hub Username |
 
 ---
 
-## 🚀 Docker Commands Used
+# ▶️ Run the Project Locally
 
-Build Image
+### Clone Repository
+
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
+
+### Build Docker Image
 
 ```bash
 docker build -t my-python-app .
 ```
 
-Tag Image
+### Run Docker Container
 
 ```bash
-docker tag my-python-app <dockerhub-username>/my-python-app:latest
+docker run -d -p 5000:5000 my-python-app
 ```
 
-Push Image
+Open your browser:
 
-```bash
-docker push <dockerhub-username>/my-python-app:latest
-```
+http://localhost:5000
+🚀 Deployment
 
-Pull Image
+Deployment is fully automated using GitHub Actions.
 
-```bash
-docker pull <dockerhub-username>/my-python-app:latest
-```
+Every successful workflow execution:
 
-Run Container
+Builds a new Docker image
+Pushes it to Docker Hub
+Deploys the latest image to AWS EC2
 
-```bash
-docker run -d --name my-python-app -p 5000:5000 <dockerhub-username>/my-python-app:latest
-```
+No manual deployment is required.
 
----
+📸 Application
 
-## 📖 What I Learned
+The Flask application displays a simple web page showing:
 
-- GitHub Actions workflow syntax
-- GitHub Secrets & Variables
-- Docker image creation
-- Docker Hub authentication
-- Docker image tagging and pushing
-- SSH deployment using GitHub Actions
-- AWS EC2 deployment
-- Docker container lifecycle management
-- Building a basic CI/CD pipeline
+DevOps CI/CD Pipeline
+Deployment Successful
+Technologies Used
+CI/CD Workflow
+📚 Skills Demonstrated
+CI/CD Pipeline
+GitHub Actions
+Docker Containerization
+Docker Hub Image Registry
+AWS EC2 Deployment
+SSH Automation
+Linux Administration
+Flask Web Application
+👩‍💻 Author
 
----
+Manmeet Kaur
 
-## 🎯 Future Improvements
+DevOps Engineer | RHCSA Certified
 
-- Convert the application into a Flask web application
-- Use Docker Compose
-- Deploy with Nginx
-- Implement Kubernetes deployment
-- Provision infrastructure using Terraform
-- Add automated testing before deployment
-
----
-
-## 👨‍💻 Author
-
-**Manmeet Kaur**
-
-Infrastructure & DevOps Engineer
-
-GitHub: https://github.com/manmeet14-do
+⭐ Future Improvements
+Add Docker Compose
+Configure Nginx Reverse Proxy
+Add HTTPS with SSL
+Deploy using Kubernetes
+Build Infrastructure with Terraform
+Add Monitoring using Prometheus & Grafana
